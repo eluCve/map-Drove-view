@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Maps API Testing</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <style>
+      .header h2 {
+        margin: 50px;
+        text-align: center;
+        color: #404040;
+      }
+      #map {
+        height: 360px;
+        width: 480px;
+        margin: auto;
+        border: thin solid #333;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+      }
+
+      #area-name {
+        margin: 50px;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid aqua;
+        background-color: aqua;
+        border-radius: 5px;
+        padding: 5px;
+      }
+      #area-name:hover {
+        background-color: red;
+        border-color: red;
+      }
+
+      #capture {
+        margin: auto;
+        height: 360px;
+        width: 480px;
+        overflow: hidden;
+        float: left;
+        background-color: whitesmoke;
+        border: thin solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Google Maps API Testing</h2>
+    </div>
+    <div class="container">
+      <div id="map"></div>
+      <div id="capture">
+        <p>Select an area on the map to view it in drone view</p>
+        <a id="area-name" target="_blanc">Empty</a>
+      </div>
+    </div>
+
+    <script>
+      let map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 6,
+          center: { lat: 39.05682453679058, lng: 22.12256750126291 },
+        });
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/switzerland.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/the-netherlands.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/italy-provinces.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/germany.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/greece-prefectures.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/france-departments.geojson"
+        );
+        map.data.loadGeoJson(
+          "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/belgium-arrondissements.geojson"
+        );
+        map.data.setStyle({
+          fillColor: "green",
+          strokeWeight: 1,
+          fillOpacity: 0.2,
+        });
+        map.data.addListener("mouseover", function (event) {
+          map.data.overrideStyle(event.feature, {
+            fillColor: "red",
+            fillOpacity: 0.5,
+            strokeWeight: 2,
+          });
+        });
+        map.data.addListener("mouseout", function (event) {
+          map.data.overrideStyle(event.feature, {
+            fillColor: "green",
+            fillOpacity: 0.2,
+            strokeWeight: 1,
+          });
+        });
+        map.data.addListener("click", function (event) {
+          console.log(event.feature.h.name);
+          let areaName = event.feature.h.name;
+          let areaURL = "https://www.youtube.com/results?search_query="+areaName+"+drone+view";
+          document.getElementById("area-name").href = areaURL;
+          document.getElementById("area-name").innerText = areaName;
+          
+          // `
+          //   <iframe
+          //     width="420"
+          //     height="315"
+          //     src="https://www.youtube.com/results?search_query=${name}+drone+view"
+          //   ></iframe>
+          // `
+        });
+      }
+    </script>
+
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA&callback=initMap"
+    ></script>
+  </body>
+</html>
