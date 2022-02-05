@@ -2,28 +2,72 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Maps API Testing</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="header">
-    <h2>Google Maps API Testing</h2>
+  <div id="header">
+    <h2>Drone View</h2>
   </div>
-  <div class="container">
+  <div id="container">
+    <h2>Select an area on map and view results bellow</h2>
     <div id="map"></div>
     <div id="capture">
-      <p>Select an area on the map to view it in drone view</p>
-      <div id="results"></div>
+      <h2 id="display-title">Display Results</h2>
+      <div id="results">
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+        <div class="ico-wrapper">
+          <div class="ico"></div>
+          <div class="ico-text">
+            <div class="text1"></div>
+            <div class="text2"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="main.js"></script>
   <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA&callback=initMap"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>

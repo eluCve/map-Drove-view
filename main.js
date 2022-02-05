@@ -51,7 +51,7 @@ function initMap() {
   map.data.addListener("click", function (event) {
     console.log(event.feature.h.name);
     let areaName = event.feature.h.name;
-    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${areaName}+drone+view&key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA`;
+    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA`;
     searchArea(areaURL)
   });
 }
@@ -66,11 +66,24 @@ function searchArea(area) {
       let videos = data.items;
       console.log(videos);
       for (video of videos) {
-        let newVideo = document.createElement("iframe");
-        newVideo.setAttribute('allowFullScreen', '');
-        newVideo.src = `https://www.youtube.com/embed/${video.id.videoId}`;
-        console.log(video.id.videoId);
-        resultArea.appendChild(newVideo);
+        // let newVideo = document.createElement("iframe");
+        // newVideo.className = "video";
+        let newDiv = document.createElement("div");
+        newDiv.className = "video-wrapper"
+
+        resultArea.appendChild(newDiv)
+        let newThumbnail = document.createElement("img");
+        newThumbnail.className = "thumbnail";
+        newThumbnail.src = video.snippet.thumbnails.high.url;
+        newDiv.appendChild(newThumbnail);
+        let newTitle = document.createElement("p");
+        newTitle.className = "video-title";
+        newTitle.innerText = `${video.snippet.title}`
+        newDiv.appendChild(newTitle);
+        // newVideo.setAttribute('allowFullScreen', '');
+        // newVideo.src = `https://www.youtube.com/embed/${video.id.videoId}`;
+        console.log(video);
+        // resultArea.appendChild(newVideo);
       }
     })
 }
