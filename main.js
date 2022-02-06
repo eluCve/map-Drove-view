@@ -93,7 +93,7 @@ function searchArea(area) {
           let backdropVid = document.createElement("iframe");
           backdropVid.className = "backdropVid";
           backdropVid.setAttribute('allowFullScreen', '');
-          backdropVid.src = `https://www.youtube.com/embed/${id}`;
+          backdropVid.src = `https://www.youtube.com/embed/${id}?enablejsapi=1`;
           backdrop.appendChild(backdropVid);
           backdrop.style.display = "none";
         }
@@ -105,6 +105,7 @@ function searchArea(area) {
         });
         document.getElementById(`backdrop${index}`).addEventListener("click", () => {
           document.getElementById(`backdrop${index}`).style.display = "none";
+          stopAllYouTubeVideos();
         });
       }
     })
@@ -120,4 +121,14 @@ function resetElements(elements) {
   while (reset_elements.length > 0) {
     reset_elements[0].parentNode.removeChild(reset_elements[0]);
   }
+}
+
+var stopAllYouTubeVideos = () => {
+  var iframes = document.querySelectorAll('iframe');
+  Array.prototype.forEach.call(iframes, iframe => {
+    iframe.contentWindow.postMessage(JSON.stringify({
+      event: 'command',
+      func: 'stopVideo'
+    }), '*');
+  });
 }
