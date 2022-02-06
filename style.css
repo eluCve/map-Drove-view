@@ -151,7 +151,7 @@ body {
 }
 
 #container h2 {
-  color: #E5E5E5;
+  color: #BB86FC;
   margin: 28px;
   margin-left: 10vw;
   font-size: 24px;
@@ -161,7 +161,7 @@ body {
 }
 
 #capture #display-title {
-  color: #E5E5E5;
+  color: #BB86FC;
   margin: 28px;
   margin-left: 10vw;
 
@@ -188,6 +188,7 @@ body {
 
 .video-wrapper {
   display: flex;
+  align-items: flex-start;
   width: 35vw;
   background-color: #2E2E2E;
   padding: 10px;
@@ -203,8 +204,9 @@ body {
 
 .video-title {
   font-size: 24px;
+  line-height: 20px;
   color: #E5E5E5;
-  margin: 20px 40px;
+  margin: 10px 15px;
   /* text-align: center; */
 }
 
@@ -249,4 +251,20 @@ body {
   width: 150px;
   height: 15px;
   background-color: #494949;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.backdropVid {
+  display: block;
+  width: 60%;
+  height: 80%;
+  margin: 60px auto;
 }

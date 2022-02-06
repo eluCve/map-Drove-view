@@ -7,6 +7,7 @@ function initMap() {
       lat: 39.05682453679058,
       lng: 22.12256750126291
     },
+    mapId: '6577b84bab099eeb',
   });
   map.data.loadGeoJson(
     "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/switzerland.geojson"
@@ -30,20 +31,20 @@ function initMap() {
     "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/belgium-arrondissements.geojson"
   );
   map.data.setStyle({
-    fillColor: "green",
+    fillColor: "#9F9F9F",
     strokeWeight: 1,
     fillOpacity: 0.2,
   });
   map.data.addListener("mouseover", function (event) {
     map.data.overrideStyle(event.feature, {
-      fillColor: "red",
+      fillColor: "#BB86FC",
       fillOpacity: 0.5,
       strokeWeight: 2,
     });
   });
   map.data.addListener("mouseout", function (event) {
     map.data.overrideStyle(event.feature, {
-      fillColor: "green",
+      fillColor: "#9F9F9F",
       fillOpacity: 0.2,
       strokeWeight: 1,
     });
@@ -66,12 +67,11 @@ function searchArea(area) {
       let videos = data.items;
       console.log(videos);
       for (video of videos) {
-        // let newVideo = document.createElement("iframe");
-        // newVideo.className = "video";
         let newDiv = document.createElement("div");
-        newDiv.className = "video-wrapper"
+        newDiv.className = "video-wrapper";
+        newDiv.id = `${video.id.videoId}`;
+        resultArea.appendChild(newDiv);
 
-        resultArea.appendChild(newDiv)
         let newThumbnail = document.createElement("img");
         newThumbnail.className = "thumbnail";
         newThumbnail.src = video.snippet.thumbnails.high.url;
@@ -80,10 +80,33 @@ function searchArea(area) {
         newTitle.className = "video-title";
         newTitle.innerText = `${video.snippet.title}`
         newDiv.appendChild(newTitle);
-        // newVideo.setAttribute('allowFullScreen', '');
-        // newVideo.src = `https://www.youtube.com/embed/${video.id.videoId}`;
-        console.log(video);
-        // resultArea.appendChild(newVideo);
+
+
+
+        onclickBackdrop(video.id.videoId);
+
+        function onclickBackdrop(id) {
+          let backdrop = document.createElement("div");
+          backdrop.className = "backdrop";
+          backdrop.id = `backdrop${id}`;
+          let container = document.getElementById("capture");
+          container.appendChild(backdrop);
+          let backdropVid = document.createElement("iframe");
+          backdropVid.className = "backdropVid";
+          backdropVid.setAttribute('allowFullScreen', '');
+          backdropVid.src = `https://www.youtube.com/embed/${id}`;
+          backdrop.appendChild(backdropVid);
+          backdrop.style.display = "none";
+        }
+        document.getElementById(`${video.id.videoId}`).addEventListener("click", () => {
+          document.getElementById(`backdrop${video.id.videoId}`).style.display = "block";
+        });
+        document.getElementById(`backdrop${video.id.videoId}`).addEventListener("click", () => {
+          document.getElementById(`backdrop${video.id.videoId}`).style.display = "none";
+        });
       }
     })
+    .catch((error) => {
+      alert('API request Quotas limit reached. Please try again tomorrow!');
+    });
 }
