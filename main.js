@@ -50,7 +50,7 @@ function initMap() {
   map.data.addListener("click", function (event) {
     console.log(event.feature.h.name);
     let areaName = event.feature.h.name;
-    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyA6rzjl-3cK8KV14fptjNOYffwr1tLqs-A`;
+    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA`;
     searchArea(areaURL);
   });
 }
