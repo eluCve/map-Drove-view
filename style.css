@@ -293,7 +293,8 @@ body {
     background-color: #2E2E2E;
     padding: 10px;
     border-radius: 20px;
-    margin: 20px auto;
+    margin: 10px auto;
+    box-sizing: border-box;
   }
 
   .video-title {
@@ -318,4 +319,15 @@ body {
     gap: 20px;
   }
 
+  .text1 {
+    width: 200px;
+    height: 15px;
+    background-color: #494949;
+  }
+
+  .text2 {
+    width: 150px;
+    height: 15px;
+    background-color: #494949;
+  }
 }
