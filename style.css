@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -130,14 +130,14 @@ table {
 }
 
 body {
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 }
 
 #header {
   text-align: center;
   font-size: 38px;
   font-weight: 800;
-  color: #BB86FC;
+  color: #bb86fc;
   margin: 38px;
 }
 
@@ -145,13 +145,13 @@ body {
   width: 80vw;
   height: 40vh;
   margin: auto;
-  border: thin solid #BB86FC;
+  border: thin solid #bb86fc;
   border-radius: 20px;
-  box-shadow: 0px 0px 8px #BB86FC;
+  box-shadow: 0px 0px 8px #bb86fc;
 }
 
 #container h2 {
-  color: #BB86FC;
+  color: #bb86fc;
   margin: 28px;
   margin-left: 10vw;
   font-size: 24px;
@@ -161,10 +161,9 @@ body {
 }
 
 #capture #display-title {
-  color: #BB86FC;
+  color: #bb86fc;
   margin: 28px;
   margin-left: 10vw;
-
 }
 
 #results {
@@ -190,7 +189,7 @@ body {
   display: flex;
   align-items: flex-start;
   width: 35vw;
-  background-color: #2E2E2E;
+  background-color: #2e2e2e;
   padding: 10px;
   border-radius: 20px;
   margin: 10px 20px;
@@ -198,14 +197,14 @@ body {
 
 .video-wrapper:hover {
   cursor: pointer;
-  background-color: #9F9F9F;
+  background-color: #9f9f9f;
   color: #fff;
 }
 
 .video-title {
   font-size: 24px;
   line-height: 20px;
-  color: #E5E5E5;
+  color: #e5e5e5;
   margin: 10px 15px;
   /* text-align: center; */
 }
@@ -228,7 +227,7 @@ body {
 .ico-wrapper {
   display: flex;
   width: 35vw;
-  background-color: #2E2E2E;
+  background-color: #2e2e2e;
   padding: 10px;
   border-radius: 20px;
   margin: 10px 20px;
@@ -260,6 +259,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .backdropVid {
@@ -267,6 +267,8 @@ body {
   width: 60%;
   height: 80%;
   margin: 60px auto;
+  border-radius: 20px;
+  border: 3px solid #494949;
 }
 
 @media only screen and (max-width: 600px) {
@@ -281,7 +283,7 @@ body {
     display: flex;
     align-items: flex-start;
     width: 90vw;
-    background-color: #2E2E2E;
+    background-color: #2e2e2e;
     padding: 10px;
     border-radius: 20px;
     margin: 10px 20px;
@@ -290,7 +292,7 @@ body {
   .ico-wrapper {
     display: flex;
     width: 90vw;
-    background-color: #2E2E2E;
+    background-color: #2e2e2e;
     padding: 10px;
     border-radius: 20px;
     margin: 10px auto;
@@ -300,7 +302,7 @@ body {
   .video-title {
     font-size: 14px;
     line-height: 14px;
-    color: #E5E5E5;
+    color: #e5e5e5;
     margin: 10px 15px;
     /* text-align: center; */
   }

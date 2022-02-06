@@ -51,11 +51,14 @@ function initMap() {
     console.log(event.feature.h.name);
     let areaName = event.feature.h.name;
     let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA`;
-    searchArea(areaURL);
+    searchArea(areaURL, areaName);
   });
 }
 
-function searchArea(area) {
+function searchArea(area, areaName) {
+  document.getElementById(
+    "display-title"
+  ).innerHTML = `Select Area on the map to display Results | Currently Viewing: ${areaName}`;
   let resultArea = document.getElementById("results");
   let arrayOfVids = [];
   resultArea.innerHTML = "";
