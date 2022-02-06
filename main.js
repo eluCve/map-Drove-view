@@ -1,5 +1,3 @@
-let map;
-
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 6,
@@ -52,21 +50,23 @@ function initMap() {
   map.data.addListener("click", function (event) {
     console.log(event.feature.h.name);
     let areaName = event.feature.h.name;
-    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyAQ3p-dKey7vcIybsEf2ljqgGJ6b3_FWbA`;
+    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyA6rzjl-3cK8KV14fptjNOYffwr1tLqs-A`;
     searchArea(areaURL)
   });
 }
 
 function searchArea(area) {
   let resultArea = document.getElementById("results");
+  let arrayOfVids = [];
+  resetElements("backdrop");
   resultArea.innerHTML = "";
   fetch(area)
     .then(result => {
       return result.json();
     }).then(data => {
       let videos = data.items;
-      console.log(videos);
       for (video of videos) {
+        arrayOfVids.push(video.id.videoId);
         let newDiv = document.createElement("div");
         newDiv.className = "video-wrapper";
         newDiv.id = `${video.id.videoId}`;
@@ -81,9 +81,8 @@ function searchArea(area) {
         newTitle.innerText = `${video.snippet.title}`
         newDiv.appendChild(newTitle);
 
-
-
         onclickBackdrop(video.id.videoId);
+        console.log(arrayOfVids);
 
         function onclickBackdrop(id) {
           let backdrop = document.createElement("div");
@@ -98,15 +97,27 @@ function searchArea(area) {
           backdrop.appendChild(backdropVid);
           backdrop.style.display = "none";
         }
-        document.getElementById(`${video.id.videoId}`).addEventListener("click", () => {
-          document.getElementById(`backdrop${video.id.videoId}`).style.display = "block";
+      }
+      for (j = 0; j <= arrayOfVids.length - 1; j++) {
+        let index = arrayOfVids[j];
+        document.getElementById(`${index}`).addEventListener("click", () => {
+          document.getElementById(`backdrop${index}`).style.display = "block";
         });
-        document.getElementById(`backdrop${video.id.videoId}`).addEventListener("click", () => {
-          document.getElementById(`backdrop${video.id.videoId}`).style.display = "none";
+        document.getElementById(`backdrop${index}`).addEventListener("click", () => {
+          document.getElementById(`backdrop${index}`).style.display = "none";
         });
       }
     })
     .catch((error) => {
-      alert('API request Quotas limit reached. Please try again tomorrow!');
+      alert('API request Quotas limit reached. Contact the Admin or try again tomorrow!');
+      console.log(error);
     });
+
+}
+
+function resetElements(elements) {
+  let reset_elements = document.getElementsByClassName(elements);
+  while (reset_elements.length > 0) {
+    reset_elements[0].parentNode.removeChild(reset_elements[0]);
+  }
 }
