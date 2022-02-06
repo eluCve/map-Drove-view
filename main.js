@@ -3,9 +3,9 @@ function initMap() {
     zoom: 6,
     center: {
       lat: 39.05682453679058,
-      lng: 22.12256750126291
+      lng: 22.12256750126291,
     },
-    mapId: '6577b84bab099eeb',
+    mapId: "6577b84bab099eeb",
   });
   map.data.loadGeoJson(
     "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/switzerland.geojson"
@@ -51,69 +51,94 @@ function initMap() {
     console.log(event.feature.h.name);
     let areaName = event.feature.h.name;
     let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyA6rzjl-3cK8KV14fptjNOYffwr1tLqs-A`;
-    searchArea(areaURL)
+    searchArea(areaURL);
   });
 }
 
 function searchArea(area) {
   let resultArea = document.getElementById("results");
   let arrayOfVids = [];
-  resetElements("backdrop");
   resultArea.innerHTML = "";
-  fetch(area)
-    .then(result => {
-      return result.json();
-    }).then(data => {
-      let videos = data.items;
-      for (video of videos) {
-        arrayOfVids.push(video.id.videoId);
-        let newDiv = document.createElement("div");
-        newDiv.className = "video-wrapper";
-        newDiv.id = `${video.id.videoId}`;
-        resultArea.appendChild(newDiv);
+  resetElements("backdrop");
+  for (k = 0; k <= 5; k++) {
+    let ico_wrapper = document.createElement("div");
+    ico_wrapper.className = "ico-wrapper";
+    resultArea.appendChild(ico_wrapper);
+    let ico = document.createElement("div");
+    ico.className = "ico";
+    ico_wrapper.appendChild(ico);
+    let ico_text = document.createElement("div");
+    ico_text.className = "ico-text";
+    ico_wrapper.appendChild(ico_text);
+    let text1 = document.createElement("div");
+    text1.className = "text1";
+    ico_text.appendChild(text1);
+    let text2 = document.createElement("div");
+    text2.className = "text2";
+    ico_text.appendChild(text2);
+  }
+  setTimeout(() => {
+    fetch(area)
+      .then((result) => {
+        return result.json();
+      })
+      .then((data) => {
+        resultArea.innerHTML = "";
+        let videos = data.items;
+        for (video of videos) {
+          arrayOfVids.push(video.id.videoId);
+          let newDiv = document.createElement("div");
+          newDiv.className = "video-wrapper";
+          newDiv.id = `${video.id.videoId}`;
+          resultArea.appendChild(newDiv);
 
-        let newThumbnail = document.createElement("img");
-        newThumbnail.className = "thumbnail";
-        newThumbnail.src = video.snippet.thumbnails.high.url;
-        newDiv.appendChild(newThumbnail);
-        let newTitle = document.createElement("p");
-        newTitle.className = "video-title";
-        newTitle.innerText = `${video.snippet.title}`
-        newDiv.appendChild(newTitle);
+          let newThumbnail = document.createElement("img");
+          newThumbnail.className = "thumbnail";
+          newThumbnail.src = video.snippet.thumbnails.high.url;
+          newDiv.appendChild(newThumbnail);
+          let newTitle = document.createElement("p");
+          newTitle.className = "video-title";
+          newTitle.innerText = `${video.snippet.title}`;
+          newDiv.appendChild(newTitle);
 
-        onclickBackdrop(video.id.videoId);
-        console.log(arrayOfVids);
+          onclickBackdrop(video.id.videoId);
+          console.log(arrayOfVids);
 
-        function onclickBackdrop(id) {
-          let backdrop = document.createElement("div");
-          backdrop.className = "backdrop";
-          backdrop.id = `backdrop${id}`;
-          let container = document.getElementById("capture");
-          container.appendChild(backdrop);
-          let backdropVid = document.createElement("iframe");
-          backdropVid.className = "backdropVid";
-          backdropVid.setAttribute('allowFullScreen', '');
-          backdropVid.src = `https://www.youtube.com/embed/${id}?enablejsapi=1`;
-          backdrop.appendChild(backdropVid);
-          backdrop.style.display = "none";
+          function onclickBackdrop(id) {
+            let backdrop = document.createElement("div");
+            backdrop.className = "backdrop";
+            backdrop.id = `backdrop${id}`;
+            let container = document.getElementById("capture");
+            container.appendChild(backdrop);
+            let backdropVid = document.createElement("iframe");
+            backdropVid.className = "backdropVid";
+            backdropVid.setAttribute("allowFullScreen", "");
+            backdropVid.src = `https://www.youtube.com/embed/${id}?enablejsapi=1`;
+            backdrop.appendChild(backdropVid);
+            backdrop.style.display = "none";
+          }
         }
-      }
-      for (j = 0; j <= arrayOfVids.length - 1; j++) {
-        let index = arrayOfVids[j];
-        document.getElementById(`${index}`).addEventListener("click", () => {
-          document.getElementById(`backdrop${index}`).style.display = "block";
-        });
-        document.getElementById(`backdrop${index}`).addEventListener("click", () => {
-          document.getElementById(`backdrop${index}`).style.display = "none";
-          stopAllYouTubeVideos();
-        });
-      }
-    })
-    .catch((error) => {
-      alert('API request Quotas limit reached. Contact the Admin or try again tomorrow!');
-      console.log(error);
-    });
-
+        for (j = 0; j <= arrayOfVids.length - 1; j++) {
+          let index = arrayOfVids[j];
+          document.getElementById(`${index}`).addEventListener("click", () => {
+            document.getElementById(`backdrop${index}`).style.display = "block";
+          });
+          document
+            .getElementById(`backdrop${index}`)
+            .addEventListener("click", () => {
+              document.getElementById(`backdrop${index}`).style.display =
+                "none";
+              stopAllYouTubeVideos();
+            });
+        }
+      })
+      .catch((error) => {
+        alert(
+          "API request Quotas limit reached. Contact the Admin or try again tomorrow!"
+        );
+        console.log(error);
+      });
+  }, 1000);
 }
 
 function resetElements(elements) {
@@ -124,11 +149,14 @@ function resetElements(elements) {
 }
 
 var stopAllYouTubeVideos = () => {
-  var iframes = document.querySelectorAll('iframe');
-  Array.prototype.forEach.call(iframes, iframe => {
-    iframe.contentWindow.postMessage(JSON.stringify({
-      event: 'command',
-      func: 'stopVideo'
-    }), '*');
+  var iframes = document.querySelectorAll("iframe");
+  Array.prototype.forEach.call(iframes, (iframe) => {
+    iframe.contentWindow.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "stopVideo",
+      }),
+      "*"
+    );
   });
-}
+};
