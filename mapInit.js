@@ -4,12 +4,12 @@ function initMap() {
     zoom: 6,
     center: {
       lat: 39.05682453679058,
-      lng: 22.12256750126291
+      lng: 22.12256750126291,
     },
-    mapId: '6577b84bab099eeb',
+    mapId: "6577b84bab099eeb",
   });
 
-  // LOAD ALL JSON DATA FOR MAP POLYGON AREAS FROM OTHER GITHUB PROJECT 
+  // LOAD ALL JSON DATA FOR MAP POLYGON AREAS FROM OTHER GITHUB PROJECT
   map.data.loadGeoJson(
     "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/switzerland.geojson"
   );
@@ -32,13 +32,12 @@ function initMap() {
     "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/belgium-arrondissements.geojson"
   );
 
-  //SET ALL THE MAP STYLING  
+  //SET ALL THE MAP STYLING
   map.data.setStyle({
     fillColor: "#9F9F9F",
     strokeWeight: 1,
     fillOpacity: 0.2,
   });
-
 
   //AND ADD ALL MOUSE EVENTS FOR THE MAP + THEIR STYLING
   map.data.addListener("mouseover", function (event) {
@@ -56,8 +55,8 @@ function initMap() {
     });
   });
   map.data.addListener("click", function (event) {
-    let areaName = event.feature.h.name;
+    let areaName = event.feature.j.name;
     let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyA6rzjl-3cK8KV14fptjNOYffwr1tLqs-A`;
-    searchArea(areaURL, areaName)
+    searchArea(areaURL, areaName);
   });
 }
