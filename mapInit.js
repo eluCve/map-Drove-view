@@ -55,9 +55,10 @@ function initMap() {
     });
   });
   map.data.addListener("click", function (event) {
-    let areaName = event.feature.j.name;
-    let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyC1diT_AA4nMwnZl_6LTr0hAO0t-gAKTrc`;
-    searchArea(areaURL, areaName);
+    console.log(event)
+  //  let areaName = event.feature.j.name;
+   // let areaURL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${areaName}+drone+view&key=AIzaSyC1diT_AA4nMwnZl_6LTr0hAO0t-gAKTrc`;
+  //  searchArea(areaURL, areaName);
   });
   let mapErrorAPI = setInterval(() => {
     let mapError = document.querySelectorAll("#map > div");
